@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
@@ -12,11 +11,13 @@ namespace Asteroids
     {
         static BufferedGraphicsContext context;
         static public BufferedGraphics buffer;
+        static Random rand = new Random();
 
         // ширина и высота игрового поля
         static public int Width { get; set; }
         static public int Height { get; set; }
         static BaseObject[] objs; // описание нашего массива объектов
+        
         static public void Init(Form form)
         {
             // графическое устройство для вывода графики
@@ -45,17 +46,52 @@ namespace Asteroids
 
         static public void Load()
         {
-            objs = new BaseObject[30+1];
-            for(int i = 0; i < objs.Length / 2; i++)
+            objs = new BaseObject[100];
+            int countStars = 90;
+            int countAsteroids = 7;
+            int countPlanets = 3;
+
+            for (int i = 0; i < countStars; i++)
             {
-                objs[i] = new BaseObject(new Point(300, i * 20), new Point(15 - i, 15 - i), new Size(20, 20));
+                int x = rand.Next(0, Game.Width);
+                int y = rand.Next(0, Game.Height);
+                Image image = Image.FromFile(@"Pictures\star.png");
+                objs[i] = new Star
+                    (
+                        new Point(x, y),
+                        Star.Dir(x, y, 3),
+                        new Size(5, 5), 
+                        image
+                    );
             }
-            for (int i = objs.Length / 2; i < objs.Length; i++)
+
+            for (int i = countStars; i < countStars + countAsteroids; i++)
             {
-                objs[i] = new Star(new Point(300, i * 20), new Point(15 - i, 15 - i), new Size(20, 20), Pens.Red);
+                int x = rand.Next(0, Game.Width);
+                int y = rand.Next(0, Game.Height);
+                Image image = Image.FromFile(@"Pictures\asteroid.png");
+                objs[i] = new Asteroid
+                    (
+                        new Point(x, y),
+                        Asteroid.Dir(x, y, 7),
+                        new Size(5, 5),
+                        image
+                    );
             }
-            Image image = Image.FromFile(@"Pictures\planet.png");
-            objs[30] = new Planet(new Point(500, 500), new Point(-3, 0), new Size(100, 100), image);
+
+            for (int i = countStars + countAsteroids; i < countStars + countAsteroids + countPlanets; i++)
+            {
+                int x = rand.Next(0, Game.Width);
+                int y = rand.Next(0, Game.Height);
+                Image image = Image.FromFile(@"Pictures\planet.png");
+                objs[i] = new Planet
+                    (
+                        new Point(x, y),
+                        BaseObject.Dir(x, y, 2),
+                        new Size(100, 100),
+                        image
+                    );
+            }
         }
 
         static public void Draw()

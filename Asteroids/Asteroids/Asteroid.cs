@@ -7,11 +7,11 @@ using System.Drawing;
 
 namespace Asteroids
 {
-    class Planet : BaseObject
+    class Asteroid : BaseObject
     {
         Image image;
         static Random rand = new Random();
-        public Planet(Point pos, Point dir, Size size, Image image) : base (pos, dir, size)
+        public Asteroid(Point pos, Point dir, Size size, Image image) : base(pos, dir, size)
         {
             this.image = image;
         }
@@ -27,9 +27,9 @@ namespace Asteroids
             pos.Y += dir.Y;
             if (pos.X < 0 || pos.X > Game.Width || pos.Y < 0 || pos.Y > Game.Height)
             {
-                pos.X = Game.Width / 2 + rand.Next(-10, 11);
-                pos.Y = Game.Height / 2 + rand.Next(-10, 11);
-                BaseObject.Dir(pos.X, pos.Y, rand.Next(1, 3));
+                pos.X = Game.Width / 2 + rand.Next(-100, 101);
+                pos.Y = Game.Height / 2 + rand.Next(-100, 101);
+                BaseObject.Dir(pos.X, pos.Y, rand.Next(1, 7));
             }
         }
     }

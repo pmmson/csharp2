@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asteroid.cs" />
     <Compile Include="BaseObject.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Planet.cs" />
@@ -60,7 +61,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Pictures\asteroid.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Pictures\planet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pictures\star.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

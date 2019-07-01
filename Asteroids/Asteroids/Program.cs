@@ -12,8 +12,8 @@ namespace Asteroids
         static void Main(string[] args)
         {
             Form form = new Form();
-            form.Width = 1024;
-            form.Height = 768;
+            form.Width = 1200;
+            form.Height = 700;
             form.Show();
             Game.Init(form);
             Application.Run(form);
