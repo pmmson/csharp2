@@ -11,6 +11,7 @@ namespace Asteroids
     {
         Image image;
         static Random rand = new Random();
+
         public Planet(Point pos, Point dir, Size size, Image image) : base (pos, dir, size)
         {
             this.image = image;
@@ -23,14 +24,15 @@ namespace Asteroids
 
         public override void Update()
         {
-            pos.X += dir.X;
-            pos.Y += dir.Y;
-            if (pos.X < 0 || pos.X > Game.Width || pos.Y < 0 || pos.Y > Game.Height)
-            {
-                pos.X = Game.Width / 2 + rand.Next(-10, 11);
-                pos.Y = Game.Height / 2 + rand.Next(-10, 11);
-                BaseObject.Dir(pos.X, pos.Y, rand.Next(1, 3));
-            }
+            pos.X = pos.X + dir.X;
+            pos.Y = pos.Y + dir.Y;
+            
+            if (pos.X < 0) pos.X = Game.Width;
+            else if (pos.X > Game.Width) pos.X = 0;
+            else if (pos.Y < 0) pos.Y = Game.Height;
+            else if (pos.Y > Game.Height) pos.Y = 0;
+
+            BaseObject.Dir(pos.X, pos.Y, rand.Next(1, 4));
         }
     }
 }

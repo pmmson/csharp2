@@ -27,8 +27,8 @@ namespace Asteroids
             pos.Y += dir.Y;
             if (pos.X < 0 || pos.X > Game.Width || pos.Y < 0 || pos.Y > Game.Height)
             {
-                pos.X = Game.Width / 2 + rand.Next(-100, 101);
-                pos.Y = Game.Height / 2 + rand.Next(-100, 101);
+                pos.X = rand.Next(0, Game.Width);
+                pos.Y = rand.Next(0, Game.Height);
                 BaseObject.Dir(pos.X, pos.Y, rand.Next(1, 7));
             }
         }
