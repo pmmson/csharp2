@@ -12,6 +12,10 @@ namespace Asteroids
         //Pen color;
         Image image;
         static Random rand = new Random();
+
+        public override Point Pos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override Size Size { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public Star(Point pos, Point dir, Size size) : base(pos, dir, size) // обращение к конструктору базового объекта
         {
             //color = Pens.Aqua;
@@ -40,9 +44,9 @@ namespace Asteroids
             pos.Y += dir.Y;
             if (pos.X < 0 || pos.X > Game.Width || pos.Y < 0 || pos.Y > Game.Height)
             {
-                pos.X = Game.Width / 2 + rand.Next(-10, 11);
-                pos.Y = Game.Height / 2 + rand.Next(-10, 11);
-                BaseObject.Dir(pos.X, pos.Y, rand.Next(1, 3));
+                pos.X = rand.Next(0, Game.Width);
+                pos.Y = rand.Next(0, Game.Height);
+                BaseObject.Dir(pos.X, pos.Y, rand.Next(0, 2));
             }
         }
     }

@@ -7,33 +7,36 @@ using System.Drawing;
 
 namespace Asteroids
 {
-    class BaseObject
+    abstract class BaseObject
     {
         protected Point pos;
         protected Point dir;
         protected Size size;
         static Random rand = new Random();
-        public BaseObject(Point pos, Point dir, Size size)
+
+        public abstract Point Pos { get; set; }
+        public abstract Size Size { get; set; }
+        protected BaseObject(Point pos, Point dir, Size size)
         {
             this.pos = pos;
             this.dir = dir;
             this.size = size;
         }
 
-        public virtual void Draw()
-        {
-            Game.buffer.Graphics.DrawEllipse(Pens.Wheat, pos.X, pos.Y, size.Width, size.Height);
-        }
+        public abstract void Draw();
+        //{
+        //Game.buffer.Graphics.DrawEllipse(Pens.Wheat, pos.X, pos.Y, size.Width, size.Height);
+        //}
 
-        public virtual void Update()
-        {
-            pos.X += dir.X;
-            pos.Y += dir.Y;
-            if (pos.X < 0) dir.X = -dir.X;
-            if (pos.X > Game.Width) dir.X = -dir.X;
-            if (pos.Y < 0) dir.Y = -dir.Y;
-            if (pos.Y > Game.Height) dir.Y = -dir.Y;
-        }
+        public abstract void Update();
+        //{
+        //    pos.X += dir.X;
+        //    pos.Y += dir.Y;
+        //    if (pos.X < 0) dir.X = -dir.X;
+        //    if (pos.X > Game.Width) dir.X = -dir.X;
+        //    if (pos.Y < 0) dir.Y = -dir.Y;
+        //    if (pos.Y > Game.Height) dir.Y = -dir.Y;
+        //}
 
         public static Point Dir(int x, int y, int speed)
         {

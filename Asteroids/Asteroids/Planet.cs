@@ -12,6 +12,9 @@ namespace Asteroids
         Image image;
         static Random rand = new Random();
 
+        public override Point Pos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override Size Size { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public Planet(Point pos, Point dir, Size size, Image image) : base (pos, dir, size)
         {
             this.image = image;
