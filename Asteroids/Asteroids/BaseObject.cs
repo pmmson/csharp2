@@ -24,19 +24,8 @@ namespace Asteroids
         }
 
         public abstract void Draw();
-        //{
-        //Game.buffer.Graphics.DrawEllipse(Pens.Wheat, pos.X, pos.Y, size.Width, size.Height);
-        //}
-
+       
         public abstract void Update();
-        //{
-        //    pos.X += dir.X;
-        //    pos.Y += dir.Y;
-        //    if (pos.X < 0) dir.X = -dir.X;
-        //    if (pos.X > Game.Width) dir.X = -dir.X;
-        //    if (pos.Y < 0) dir.Y = -dir.Y;
-        //    if (pos.Y > Game.Height) dir.Y = -dir.Y;
-        //}
 
         public static Point Dir(int x, int y, int speed)
         {
