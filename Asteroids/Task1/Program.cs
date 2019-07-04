@@ -13,10 +13,6 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task1
 {
@@ -42,6 +38,15 @@ namespace Task1
             {
                 Console.WriteLine(worker.ToString());
             }
+
+            Console.WriteLine("\nСоздать класс, содержащий массив сотрудников, и реализовать возможность вывода данных с использованием foreach");
+            Employee employees = new Employee(20);
+            
+            foreach(var employee in employees)
+            {
+                Console.WriteLine($"{employee}");
+            }
+
 
             Console.ReadKey();
         }

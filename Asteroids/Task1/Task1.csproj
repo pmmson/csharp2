@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseEmployee.cs" />
+    <Compile Include="Employee.cs" />
     <Compile Include="FixSalary.cs" />
     <Compile Include="HourlySalary.cs" />
     <Compile Include="Program.cs" />
