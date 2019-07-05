@@ -7,33 +7,28 @@ using System.Drawing;
 
 namespace Asteroids
 {
-    class BaseObject
+    abstract class BaseObject : ICollision
     {
         protected Point pos;
         protected Point dir;
         protected Size size;
         static Random rand = new Random();
-        public BaseObject(Point pos, Point dir, Size size)
+
+        public abstract Point Pos { get; set; }
+        public abstract Size Size { get; set; }
+
+        public Rectangle Rect => new Rectangle(Pos, Size);
+
+        protected BaseObject(Point pos, Point dir, Size size)
         {
             this.pos = pos;
             this.dir = dir;
             this.size = size;
         }
 
-        public virtual void Draw()
-        {
-            Game.buffer.Graphics.DrawEllipse(Pens.Wheat, pos.X, pos.Y, size.Width, size.Height);
-        }
-
-        public virtual void Update()
-        {
-            pos.X += dir.X;
-            pos.Y += dir.Y;
-            if (pos.X < 0) dir.X = -dir.X;
-            if (pos.X > Game.Width) dir.X = -dir.X;
-            if (pos.Y < 0) dir.Y = -dir.Y;
-            if (pos.Y > Game.Height) dir.Y = -dir.Y;
-        }
+        public abstract void Draw();
+       
+        public abstract void Update();
 
         public static Point Dir(int x, int y, int speed)
         {
@@ -43,6 +38,11 @@ namespace Asteroids
             else if (x < Game.Width / 2 && y < Game.Height / 2) { x = rand.Next(-speed, 1); y = rand.Next(-speed, 1); }
 
             return new Point(x, y);
+        }
+
+        public bool Collision(ICollision obj)
+        {
+            return obj.Rect.IntersectsWith(this.Rect);
         }
     }
 }

@@ -12,6 +12,9 @@ namespace Asteroids
         Image image;
         static Random rand = new Random();
 
+        public override Point Pos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override Size Size { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public Planet(Point pos, Point dir, Size size, Image image) : base (pos, dir, size)
         {
             this.image = image;
@@ -19,7 +22,7 @@ namespace Asteroids
 
         public override void Draw()
         {
-            Game.buffer.Graphics.DrawImage(image, pos);
+            Game.buffer.Graphics.DrawImage(image, pos.X, pos.Y, size.Width, size.Height);
         }
 
         public override void Update()

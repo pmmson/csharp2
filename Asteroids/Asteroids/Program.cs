@@ -14,9 +14,18 @@ namespace Asteroids
             Form form = new Form();
             form.Width = 1200;
             form.Height = 700;
+            form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
-            Game.Init(form);
-            Application.Run(form);
+            int result = Game.Init(form);
+            if (result == 0) Application.Run(form);
+            else if (result == -1)
+            {
+                Console.WriteLine("Недопустимый размер экрана для игры");
+                form.Close();
+            }
+
+            
+            Console.ReadKey();
         }
     }
 }
