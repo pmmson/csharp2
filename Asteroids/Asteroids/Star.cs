@@ -16,27 +16,13 @@ namespace Asteroids
         public override Point Pos { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public override Size Size { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public Star(Point pos, Point dir, Size size) : base(pos, dir, size) // обращение к конструктору базового объекта
-        {
-            //color = Pens.Aqua;
-        }
-
-        //public Star(Point pos, Point dir, Size size, Pen color) : this(pos, dir, size) // : base(pos, dir, size)
-        //{
-        //    this.color = color;
-        //}
-        public Star(Point pos, Point dir, Size size, Image image) : this(pos, dir, size) // : base(pos, dir, size)
+        public Star(Point pos, Point dir, Size size, Image image) : base(pos, dir, size) // : base(pos, dir, size)
         {
             this.image = image;
         }
         public override void Draw()
         {
-            Game.buffer.Graphics.DrawImage(image, pos);
-            //    Game.buffer.Graphics.DrawLine(color, pos.X, pos.Y, pos.X + size.Width, pos.Y + size.Width);
-            //    Game.buffer.Graphics.DrawLine(color, pos.X + size.Width, pos.Y, pos.X, pos.Y + size.Width);
-            //    Game.buffer.Graphics.DrawLine(color, pos.X + size.Width / 2, pos.Y - size.Width / 2, pos.X + size.Width / 2, pos.Y + size.Width / 2 + size.Width);
-            //    Game.buffer.Graphics.DrawLine(color, pos.X - size.Width / 2, pos.Y + size.Width / 2, pos.X + size.Width / 2 + size.Width, pos.Y + size.Width / 2);
-        }
+            Game.buffer.Graphics.DrawImage(image, pos.X, pos.Y, size.Width, size.Height);}
 
         public override void Update()
         {

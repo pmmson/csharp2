@@ -16,30 +16,37 @@ namespace Asteroids
         // ширина и высота игрового поля
         static public int Width { get; set; }
         static public int Height { get; set; }
-        //static BaseObject[] objs; // описание нашего массива объектов
+
         static Asteroid[] asteroids;
         static Star[] stars;
         static Planet[] planets;
         static Bullet bullet;
         
-        static public void Init(Form form)
+        static public int Init(Form form)
         {
             // графическое устройство для вывода графики
             Graphics g;
             // предоставляет доступ к главному буферу графического контекста для текущего приложения
             context = BufferedGraphicsManager.Current;
             g = form.CreateGraphics(); // создаем поверхность для рисования и связываем его с формой
-            Width = form.Width;
-            Height = form.Height;
+            try
+            {
+                Width = form.ClientSize.Width;
+                Height = form.ClientSize.Height;
+                if (Width <= 120 || Width > Screen.PrimaryScreen.WorkingArea.Width * 0.99 || Height <= 0 || Height > Screen.PrimaryScreen.WorkingArea.Height * 0.95) throw new ArgumentOutOfRangeException();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return -1;
+            }
             //  связываем буфер в памяти с графическим объектом для того чтобы рисовать в буфере
             buffer = context.Allocate(g, new Rectangle(0, 0, Width, Height));
-            // Draw(); // for test
             Load();
             Timer timer = new Timer();
             timer.Interval = 100;
             timer.Tick += Timer_Tick;
             timer.Start();
-
+            return 0;
         }
 
         private static void Timer_Tick(object sender, EventArgs e)
@@ -54,7 +61,7 @@ namespace Asteroids
             asteroids = new Asteroid[10];
             planets = new Planet[3];
             Image rocket = Image.FromFile(@"Pictures\rocket.png");
-            bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(10, 5), rocket);
+            bullet = new Bullet(new Point(0, 200), new Point(5, 0), new Size(10, 10), rocket);
 
             for (int i = 0; i < stars.Length; i++)
             {
@@ -65,7 +72,7 @@ namespace Asteroids
                     (
                         new Point(x, y),
                         Star.Dir(x, y, 3),
-                        new Size(15, 15), 
+                        new Size(20, 20), 
                         image
                     );
             }
@@ -79,7 +86,7 @@ namespace Asteroids
                     (
                         new Point(x, y),
                         Asteroid.Dir(x, y, 7),
-                        new Size(40, 40),
+                        new Size(50, 50),
                         image
                     );
             }
@@ -93,7 +100,7 @@ namespace Asteroids
                     (
                         new Point(x, y),
                         BaseObject.Dir(x, y, 2),
-                        new Size(50, 50),
+                        new Size(70, 70),
                         image
                     );
             }
@@ -101,17 +108,7 @@ namespace Asteroids
 
         static public void Draw()
         {
-            // проверяем вывод графики for test
             buffer.Graphics.Clear(Color.Black);
-            //buffer.Graphics.DrawRectangle(Pens.White, new Rectangle(100, 100, 200, 200));
-            //buffer.Graphics.FillEllipse(Brushes.Wheat, new Rectangle(100, 100, 200, 200));
-
-            //foreach (BaseObject obj in objs)
-            //{
-            //    if (obj is Star) (obj as Star).Draw();
-            //    if (obj is BaseObject) (obj as BaseObject).Draw();
-            //    obj.Draw();
-            //}
 
             foreach (Star obj in stars)
             {
@@ -139,22 +136,17 @@ namespace Asteroids
             {
                 obj.Update();
             }
-            foreach (Planet obj in planets)
+                foreach (Planet obj in planets)
             {
                 obj.Update();
             }
             bullet.Update();
 
-            // проверяем нет ли столкновения и если есть обрабатываем
-            foreach(Asteroid obj in asteroids)
+            foreach (Asteroid obj in asteroids)
             {
-                int boomX = bullet.Pos.X + bullet.Size.Width;
-                int boomY = bullet.Pos.Y + bullet.Size.Height;
-
-                if ((boomX >= obj.Pos.X && boomX <= (obj.Pos.X + obj.Size.Width)) && 
-                    (boomY >= obj.Pos.Y && boomY <= (obj.Pos.Y + obj.Size.Height)))
+                if (obj.Collision(bullet))
                 {
-                    Console.WriteLine($"Boom! {bullet.Pos.X + bullet.Size.Width} {obj.Pos.X}");
+                    System.Media.SystemSounds.Hand.Play();
                     obj.Pos = new Point(rand.Next(0, Game.Width), rand.Next(0, Game.Height));
                     bullet.Pos = new Point(0, rand.Next(0, Game.Height));
                 }

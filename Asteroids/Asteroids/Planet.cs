@@ -22,7 +22,7 @@ namespace Asteroids
 
         public override void Draw()
         {
-            Game.buffer.Graphics.DrawImage(image, pos);
+            Game.buffer.Graphics.DrawImage(image, pos.X, pos.Y, size.Width, size.Height);
         }
 
         public override void Update()

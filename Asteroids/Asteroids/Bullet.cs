@@ -25,7 +25,6 @@ namespace Asteroids
 
         public override void Draw()
         {
-            //Game.buffer.Graphics.DrawRectangle(Pens.OrangeRed, pos.X, pos.Y, size.Width, size.Height);
             Game.buffer.Graphics.DrawImage(image, pos);
         }
 
