@@ -7,31 +7,26 @@ using System.Drawing;
 
 namespace Asteroids
 {
-    class Asteroid : BaseObject
+    class Bullet : BaseObject
     {
         Image image;
-        static Random rand = new Random();
         
-        public Asteroid(Point pos, Point dir, Size size, Image image) : base(pos, dir, size)
+        public Bullet(Point pos, Point dir, Size size, Image image) : base(pos, dir, size)
         {
             this.image = image;
         }
+
         public override Point Pos { get => pos; set => pos = value; }
         public override Size Size { get => size; set => size = value; }
+
         public override void Draw()
         {
-            Game.buffer.Graphics.DrawImage(image, pos.X, pos.Y, size.Width, size.Height);
+            Game.buffer.Graphics.DrawImage(image, pos);
         }
 
         public override void Update()
         {
-            pos.X += dir.X;
-            pos.Y += dir.Y;
-            if (pos.X < 0 || pos.Y < 0 || pos.Y > Game.Height)
-            {
-                pos.X = Game.Width;
-                pos.Y = rand.Next(0, Game.Height);
-            }
+            pos.X = pos.X + dir.X;
         }
     }
 }
