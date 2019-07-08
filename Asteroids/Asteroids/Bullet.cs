@@ -10,11 +10,7 @@ namespace Asteroids
     class Bullet : BaseObject
     {
         Image image;
-        static Random rand = new Random();
         
-        public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
-        {
-        }
         public Bullet(Point pos, Point dir, Size size, Image image) : base(pos, dir, size)
         {
             this.image = image;
@@ -30,12 +26,7 @@ namespace Asteroids
 
         public override void Update()
         {
-            pos.X = pos.X + 30;
-            if (pos.X > Game.Width)
-            {
-                pos.X = 0;
-                pos.Y = rand.Next(0, Game.Height);
-            }
+            pos.X = pos.X + dir.X;
         }
     }
 }

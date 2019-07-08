@@ -23,6 +23,11 @@ namespace Asteroids
                 Console.WriteLine("Недопустимый размер экрана для игры");
                 form.Close();
             }
+            else if (result == -2)
+            {
+                Console.WriteLine("Недопустимый размер объекта в игре");
+                form.Close();
+            }
 
             
             Console.ReadKey();

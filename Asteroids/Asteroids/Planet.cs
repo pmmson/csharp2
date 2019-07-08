@@ -34,8 +34,6 @@ namespace Asteroids
             else if (pos.X > Game.Width) pos.X = 0;
             else if (pos.Y < 0) pos.Y = Game.Height;
             else if (pos.Y > Game.Height) pos.Y = 0;
-
-            BaseObject.Dir(pos.X, pos.Y, rand.Next(1, 4));
         }
     }
 }
